@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax
+        /libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"
+    ></script>
+    
+    <title>Chat Page</title>
+    <style>
+        /* Style the chat container */
+        .chat-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            max-width: 500px;
+            margin: auto;
+            overflow-y: scroll;
+            height: 400px;
+        }
+
+        /* Style the individual chat messages */
+        .chat-message {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        /* Style the user name in each chat message */
+        .user-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Align chat messages to the left */
+        .chat-message-left {
+            text-align: left;
+            margin-right: auto;
+            margin-left: 0;
+            background-color: #f1f1f1;
+        }
+
+        /* Align chat messages to the right */
+        .chat-message-right {
+            text-align: right;
+            margin-left: auto;
+            margin-right: 0;
+            background-color: #DCF8C6;
+        }
+
+        /* Style the chat input box and button */
+        .chat-input {
+          margin-left:100px;
+          bottom:20px;
+        }
+
+         .chat-input input[type=text] {
+            padding: 10px;
+            border-radius: 5px;
+        } 
+
+        .chat-input button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    </style>
+  </head>
+  <body>
+    {% if user.is_authenticated %}
+    <h1 style="text-align: end; padding-right: 10px">
+      Chatting with {{ other_person.username }}
+    </h1>
+    <input type="hidden" id="logged-in-user" value="{{ user.id }}" />
+    {% endif %}
+    <div class="msg_card_body" style="margin:auto">
+    {%if thread.chatmessage_thread == None%}
+      <div>
+        <p>Start chatting</p>
+      </div>
+    {%else%}
+    {% for msg in thread.chatmessage_thread.all %}
+    {% if msg.user == user%}
+    <div class="chat-message chat-message-right">
+      <span class="user-name">Me:</span> {{msg.message}}
+    </div>
+    {% else %}
+    <div class="chat-message chat-message-left" >
+      <span class="user-name">{{other_person.username}}:</span> {{msg.message}}
+    </div>
+    
+
+    {%endif%}
+    {%endfor%}
+    {%endif%}
+  </div>
+    <div class="chat-input">
+      <!-- Input box for new chat messages -->
+      <form id="send-message-form">
+      <input type="text" style="width:70%" id="input-message" placeholder="Type your message...">
+      <button>
+        <span class="input-group-text send_btn">
+          <i class="fas fa-location-arrow"></i>
+      </span>
+      </button>
+    </form>
+  </div>
+
+{% if other_person == None%}
+    <p>hejehuche</p>
+    {%endif%}
+    <p style="display:None;color:black" id="other_user">{{other_person.id}}</p>
+<script src="{% static 'js/messages.js' %}"></script>
+    {% comment %} <div class="card-footer">
+      <form id="send-message-form">
+            <div class="input-group">
+                <div class="input-group-append">
+                    <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
+                </div>
+                <input type="text" name="" id="input-message" class="form-control type_msg" placeholder="Type your message...">
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="submit">
+                        <span class="input-group-text send_btn">
+                            <i class="fas fa-location-arrow"></i>
+                        </span>
+                    </button>
+
+                </div>
+        </div>
+        </form>
+    </div> {% endcomment %}
+    
+  </body>

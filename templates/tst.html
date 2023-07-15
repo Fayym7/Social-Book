@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Page</title>
+    <style>
+        /* Style the chat container */
+        .chat-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: auto;
+            overflow-y: scroll;
+
+        }
+
+        /* Style the individual chat messages */
+        .chat-message {
+            background-color: #f1f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+
+        /* Style the user name in each chat message */
+        .user-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Align chat messages to the left */
+        .chat-message-left {
+            text-align: left;
+            margin-right: auto;
+            margin-left: 0;
+            background-color: #f1f1f1;
+        }
+
+        /* Align chat messages to the right */
+        .chat-message-right {
+            text-align: right;
+            margin-left: auto;
+            margin-right: 0;
+            background-color: #DCF8C6;
+        }
+
+        /* Style the chat input box and button */
+       
+
+        .chat-input input[type=text] {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .chat-input button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Display chat messages here -->
+        <div class="chat-message chat-message-left">
+            <span class="user-name">John:</span> Hi there!
+        </div>
+        <div class="chat-message chat-message-right">
+            <span class="user-name">Jane:</span> Hello, John!
+        </div>
+        <div class="chat-message chat-message-left">
+            <span class="user-name">John:</span> How are you?
+        </div>
+        <div class="chat-message chat-message-right">
+            <span class="user-name">Jane:</span> I'm good, thanks for asking!
+        </div>
+    </div>
+    <div class="chat-input">
+        <!-- Input box for new chat messages -->
+        <input type="text" placeholder="Type your message...">
+        <button>Send</button>
+    </div>
+</body>
+</html>

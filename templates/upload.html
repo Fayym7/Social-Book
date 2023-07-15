@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+    <style>
+        h5{
+            font-family:cursive
+        }
+    </style>
+   
+    
+   
+</head>
+<body>
+    <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small" class="header_dropdown">
+   
+    <!-- notivication header -->
+    <div class="px-4 py-3 -mx-5 -mt-4 mb-5 border-b">
+        <h4>Upload Pics</h4>
+    </div>
+
+    <!-- notification contents -->
+    <div class="flex justify-center flex-center text-center">
+
+        <div class="flex flex-col choose-upload text-center">
+           
+          
+
+            <form action="" method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div>
+                {% for message in messages %}
+                <h5 style="color:red;">{{message}}</h5>
+                {% endfor %}
+                <input type="file" name="image_upload">
+                <textarea class="button soft-warning small" name="caption" placeholder="caption..." ></textarea>
+                <br>
+                <button  class="button bg-blue-700" type="submit" >Upload</button>
+            </div>
+            </form>
+
+        
+        </div>
+
+
+               
+         <div class="uk-flex uk-flex-column choose-upload" hidden>
+            
+             <p class="my-3 leading-6"> Import videos from YouTube <br> Copy / Paste your video link here </p>
+             <form class="uk-grid-small" uk-grid>
+                 <div class="uk-width-expand">
+                     <input type="text" class="uk-input uk-form-small  bg-gray-200 " style="box-shadow:none" placeholder="Paste link">
+                 </div>
+                 <div class="uk-width-auto"> <button type="submit" class="button soft-warning -ml-2">
+                         Import </button> </div>
+             </form>
+             <a href="#" class="uk-text-muted mt-3 uk-link"
+                 uk-toggle="target: .choose-upload ; animation: uk-animation-slide-left-small, uk-animation-slide-right-medium; queued: true">
+                 Or Upload Video </a>
+         </div>
+
+     </div>
+     <div class="px-4 py-3 -mx-5 -mb-4 mt-5 border-t text-sm">
+         Your Image size Must be Maxmium 999MB
+     </div>
+    </body>

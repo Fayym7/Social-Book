@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <link href="{% static 'favicon.png' %}" rel="icon" type="image/png">
+	{% if title == 'Followers' %}
+	<title>Followers</title>
+    {%else%}
+    <title>Following</title>
+    {%endif%}
+
+  
+</head>
+<body>
+    {% if title == 'Followers' %}
+    {% for follower in followers %}
+    <p style="color:black;font-size:30px"><strong>{{follower.follower}}</strong></p><br><br>
+    {%endfor%}
+    {%else%}
+    {% for follow in following %}
+    <p style="color:black;font-size:30px"><strong>{{follow.user}}</strong></p><br><br>
+    {%endfor%}
+    {%endif%}
+</body>

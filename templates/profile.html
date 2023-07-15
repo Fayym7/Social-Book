@@ -1,0 +1,205 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+	<style>
+		.button{
+			background-color: white;
+			border: none;
+			color:white;
+			padding: 15px 32px;
+			text-align:center;
+			cursor:pointer;
+			font-size:16px;
+		}
+	</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+	<title>Profile - {{user_profile.user.username}}</title>
+   <!-- <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> -->
+   	<link href="{% static 'favicon.png' %}" rel="icon" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+	<style>
+		body {
+			background-image:url("{% static 'assets/avatar/bgi8.jpg' %}");
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			background-size: cover;}
+	</style>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+</head>
+<body>
+<!--<div class="se-pre-con"></div>-->
+
+	
+			<div class="feature-photo">
+		
+				
+					<div class="add-btn">
+					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a style="text-decoration:none;font-family:cursive;color:white" href="/">Home</a></u></b></span>
+					{% if user_post_length == 0 %}
+					<span style="color: white; font-size: 27px;font-family:cursive;"><b>No post</b></span>
+					{% elif user_post_length == 1 %}
+					<span style="color: white; font-size: 27px;font-family:cursive;"><b>1 post</b></span>
+					{% else %}
+					<span style="color: white; font-size: 27px;font-family:cursive;"><b>{{user_post_length}} posts</b></span>
+					{%endif%}
+					<a href="/followering?val={{followers}}&user={{user_object.username}}" style="margin-left:100px;color: white; font-size: 27px;font-family:cursive;"><b>{{user_followers}} followers</b></a>
+					<a href="/followering?val={{following}}&user={{user_object.username}}" style=" margin-left:100px;color: white; font-size: 27px;font-family:cursive;"><b>{{user_following}} following</b></a>
+					</div></div>
+			<div>
+					<form action="/follow" method="POST">
+					{% csrf_token %}
+					<input type="hidden" value="profile" name="page"/>
+					<input type="hidden" value="{{user.username}}" name="follower"/>
+					<input type="hidden" value="{{user_object.username}}" name="user"/>
+					{% if user_object.username == user.username%}
+					<a style="display:inline;margin-top:50px;background-color: white; border: #ffc0cb;" href="/setting"><b>Account settings</b></a>
+					{% else %}
+					<a data-ripple=""><button type="submit" style="display:inline;margin-top:50px;background-color: white; border: #ffc0cb;"><b>{{button_text}}</b></button></a>
+					{% endif %}
+				    </form>
+				</div>
+				
+		
+			<div  style="width:60px;margin-left:90%;display:flex;border-radius:5px;margin-right:70px;margin-top:20px;justify-content:center">
+			{% if user_object.username != user.username%}
+				{% comment %} <form id="docss">
+				<input type="hidden" value="{{user.username}}" name="room"/> {% endcomment %}
+			<a style ="font-size: 18px; 
+			color: blue; 
+			font-family: Verdana, sans-serif;
+			font-weight: bold; 
+			text-align: center; 
+			text-decoration: none;" href="/chat?receiver={{user_object.username}}"><div style="border-radius: 4px; padding:10px;height:40px width: 80px; background-color: white;">Chat</div></a>
+			{% endif %} 
+			</div> 
+
+				<!-- <form class="edit-phto">
+					<i class="fa fa-camera-retro"></i>
+					<label class="fileContainer">
+						Upload Cover Photo
+					<input type="file"/>
+					</label>
+				</form> -->
+				<div class="container-fluid">
+					<div class="row merged">
+						<div class="col-lg-2 col-sm-3">
+							<div class="user-avatar">
+								<figure>
+									<img src={{user_profile.profileimg.url}} style="margin-left:40%;height: 250px;border-radius:125px; width:200px;" alt=""/>
+									
+								</figure>
+							</div>
+						</div>
+						<div class="col-lg-10 col-sm-9">
+							<div class="timeline-info">
+							
+							
+									  <h5 style="color:white;white-space: nowrap;margin-left:220px; width: 110px; font-size: 27px;"><b>{{user_profile.user.username}}</b></h5>
+									  <!--<span>Group Admin</span>-->
+						
+								<!-- top area -->
+		<section>
+			<div style="margin-top:30px;margin-left:220px">
+				<p style="color:white">{{user_profile.bio}}</p>
+			</div>
+		</section>
+		
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row" id="page-contents">
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+									
+									
+									
+								</aside>
+							</div><!-- sidebar -->
+							
+
+
+
+
+
+
+
+
+
+							<div class="col-lg-6">
+								<div class="central-meta">
+									<ul class="photos">
+										{%for post in user_post%}
+										<li>
+											<a class="strip" href="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+												<img src=" {{post.image.url}}" style="height: 250px; width: 300px;" alt=""></a>
+												{%if user_object.username == user.username %}
+													<form method="POST" action="">
+													{%csrf_token%}
+													<input type="hidden" value="{{post.id}}" name="ide"/>
+													<button type="submit" style="background-color:black;color:white"><b>Delete</b></button>
+													</form>{% endif %}
+										</li><br><br>
+										{% endfor %}
+										
+										
+										
+									</ul>
+									<!--<div class="lodmore"><button class="btn-view btn-load-more"></button></div>-->
+								</div><!-- photos -->
+							</div><!-- centerl meta -->
+							<div class="col-lg-3">
+								<aside class="sidebar static">
+									
+								</aside>
+							</div><!-- sidebar -->
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+
+	
+	
+	{% comment %} <script type="text/javascript">
+		let form = document.getElementById('docss')
+	
+		let handleSubmit = async (e) => {
+			e.preventDefault()
+	
+			let response = await fetch(`/createandgettoken`)
+			let data = await response.json()
+	
+			let UID = data.uid
+			let token = data.token
+			let name=data.name
+			let room=data.room
+	
+			sessionStorage.setItem('UID', UID)
+			sessionStorage.setItem('token', token)
+			sessionStorage.setItem('room', room)
+			sessionStorage.setItem('name', name)
+	
+			window.open('/room', '_self')
+		}
+	
+	
+	
+		form.addEventListener('submit', handleSubmit)
+	</script> {% endcomment %}
+</body>	
+
+
+</html>
