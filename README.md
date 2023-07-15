@@ -1,2 +1,2 @@
 Social-Book
-This is my first Project hosting in Github
+This project I have made is similar to the Instagram with inbuilt realtime chatting feature using Django Channels in the backend and Websockets in the frontend, and many other asynchronous feature are also added such as asynchronously fetching related search results for each letter entered in search bar, similar to what we see in Google search bar and also asynchronous 'like' feature to the posts with updated like count in realtime. 
